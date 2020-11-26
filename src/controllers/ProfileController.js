@@ -22,8 +22,8 @@ module.exports = {
   },
   async create(req, res) {
     try {
-      const { email, password } = req.body.email;
-      console.log('\n\n\npassword -> ', email, req.body.password);
+      const { email, password } = req.body;
+      console.log('\n\n\npassword -> ', email, password);
       // const password = crypt.encrypt(String(req.body.password));
 
       const clients = await connection('clients')
