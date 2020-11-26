@@ -20,11 +20,11 @@ module.exports = {
     }
   },
   async create(req, res) {
-    const email = req.body.email;
-    console.log('\n\n\npassword -> ', email, req.body.password);
-    const password = crypt.encrypt(String(req.body.password));
-
     try {
+      const email = req.body.email;
+      console.log('\n\n\npassword -> ', email, req.body.password);
+      const password = crypt.encrypt(String(req.body.password));
+
       const clients = await connection('clients')
         .select('id')
         .where({ email, password })
