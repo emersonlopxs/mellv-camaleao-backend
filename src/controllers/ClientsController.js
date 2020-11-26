@@ -30,8 +30,8 @@ module.exports = {
 
       const { name, surname, displayname, email, phone } = req.body;
       /* cripting password */
-      const password = crypt.encrypt(req.body.password);
-      
+      const password = crypt.encrypt(String(req.body.password));
+
       await connection('clients').insert({
         id,
         name,
@@ -43,7 +43,7 @@ module.exports = {
       });
       return res.status(201).header('x-access-token', token).send();
     } catch (err) {
-      console.log(err);
+      console.log('error -> ', err);
 
       return res.status(503).json({
         message: 'Falha ao criar usuario',

@@ -12,6 +12,7 @@ module.exports = {
         .where('id', id);
       return res.json(client);
     } catch (err) {
+      console.log('error -> ', err);
       return res.status(503).json({
         message: 'Não foi possível processar sua requisição',
         status: 'could not show client',
@@ -57,7 +58,7 @@ module.exports = {
 
       return res.status(204).header('x-access-token', token).send();
     } catch (error) {
-      console.log(error);
+      console.log('error -> ', err);
 
       return res.status(503).json({
         message: 'Não foi possível logar, confira suas credenciais',
