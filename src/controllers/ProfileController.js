@@ -28,7 +28,7 @@ module.exports = {
 
       const clients = await connection('clients')
         .select('id')
-        .where({ email, password: 'req.body.password' })
+        .where({ email, password: req.body.password })
         .first();
 
       if (!clients) {
