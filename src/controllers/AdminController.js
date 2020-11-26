@@ -51,7 +51,7 @@ module.exports = {
     const id = req.headers.admin_id
     const { email, pass, name } = req.body
     try {
-      password = crypt.encrypt(pass)
+      password = pass;
     }
     catch (err) {
       return res.status(503).json({
