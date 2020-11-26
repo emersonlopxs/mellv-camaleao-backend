@@ -36,15 +36,15 @@ module.exports = {
 
       const token = createToken(clients.id);
 
-      const { error } = await SendEmail({
-        name: 'Emerson',
-        to: email,
-        message: `
-        <p>
-          Hey! Someone logged into your account! Mellv team.
-        </p>
-        `,
-      });
+      // const { error } = await SendEmail({
+      //   name: 'Emerson',
+      //   to: email,
+      //   message: `
+      //   <p>
+      //     Hey! Someone logged into your account! Mellv team.
+      //   </p>
+      //   `,
+      // });
 
       if (error) {
         res.status(502).send({
