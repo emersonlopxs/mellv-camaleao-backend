@@ -109,7 +109,6 @@ module.exports = {
     for (let i = 0; i < order.length; i++) {
       for (let j = 0; j < order_det.length; j++) {
         if (order[i].id === order_det[j].order_id) {
-
           const [product] = await connection('products')
             .select(['name', 'id', 'images'])
             .where('id', order_det[j].product_id);
@@ -161,6 +160,18 @@ module.exports = {
     } = req.body;
 
     try {
+      const payment = await stripe.paymentIntents.create({
+        amount: Number(total) * 100,
+        currency: 'BRL',
+        description: 'Descrição...',
+        payment_method: stripe_pay_id,
+        confirm: true,
+        metadata: {
+          customer_id: cli_id,
+          // order_id: id,
+        },
+      });
+
       const [id] = await connection('order')
         .insert({
           cli_id,
@@ -168,7 +179,7 @@ module.exports = {
           total_price: total,
           note,
           name,
-          cpf,
+          cpf: cpf.replace(/\./g,'').replace(/\-/g,''),
         })
         .returning('id');
 
@@ -204,18 +215,6 @@ module.exports = {
       const [order_det] = await connection('order_det')
         .insert(details)
         .returning('*');
-
-      const payment = await stripe.paymentIntents.create({
-        amount: Number(total) * 100,
-        currency: 'BRL',
-        description: 'Descrição...',
-        payment_method: stripe_pay_id,
-        confirm: true,
-        metadata: {
-          customer_id: cli_id,
-          order_id: id,
-        },
-      });
 
       const { id: payment_id, amount_received, description } = payment;
 
@@ -260,7 +259,17 @@ module.exports = {
 
       return res.status(200).json({ message: 'success' });
     } catch (error) {
-      console.log('error -> ', error);
+      console.log('\n\n\nerror -> ', error);
+      console.log('\n\n\nerror -> ', error.type);
+
+      if (error.type === 'StripeCardError') {
+        return res.status(500).json({
+          type: 'stripe-error',
+          error: error,
+          message: 'Falha no pagamento, verifique os dados do cartão!',
+        });
+      }
+
       return res.status(500).json({ error: error });
     }
   },

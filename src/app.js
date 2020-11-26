@@ -9,7 +9,7 @@ app.use(morgan());
 
 app.get('/', (request, response) =>
   response.status(200).json({
-    message: 'Auto deploy worked!',
+    message: 'Auto deploy workedd!',
   })
 );
 
