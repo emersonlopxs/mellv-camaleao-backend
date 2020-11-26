@@ -30,7 +30,7 @@ module.exports = {
 
       const { name, surname, displayname, email, phone } = req.body;
       /* cripting password */
-      const password = crypt.encrypt(String(req.body.password));
+      // const password = crypt.encrypt(String(req.body.password));
 
       await connection('clients').insert({
         id,
@@ -38,7 +38,7 @@ module.exports = {
         surname,
         displayname,
         email,
-        password,
+        password: req.body.password,
         phone,
       });
       return res.status(201).header('x-access-token', token).send();

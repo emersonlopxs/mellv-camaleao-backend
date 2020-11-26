@@ -24,11 +24,11 @@ module.exports = {
     try {
       const email = req.body.email;
       console.log('\n\n\npassword -> ', email, req.body.password);
-      const password = crypt.encrypt(String(req.body.password));
+      // const password = crypt.encrypt(String(req.body.password));
 
       const clients = await connection('clients')
         .select('id')
-        .where({ email, password })
+        .where({ email, password: 'req.body.password' })
         .first();
 
       if (!clients) {
