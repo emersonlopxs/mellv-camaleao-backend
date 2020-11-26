@@ -37,7 +37,7 @@ routes.put('/products/update/:prod_id', products.update);
 routes.get('/clients', clients.index);
 routes.get('/clients/profile', JWT.verifyJWT, profile.show); /* profile */
 routes.post('/clients/signUp', clientValidadion, clients.create);
-routes.post('/clients/logIn', loginValidadion, profile.create); /* login */
+routes.post('/clients/logIn', profile.create); /* login */
 routes.delete('/clients/delete', clients.delete); /* has verification */
 routes.put('/clients/update', clients.update); /* has verification */
 
