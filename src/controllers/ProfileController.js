@@ -22,13 +22,13 @@ module.exports = {
   },
   async create(req, res) {
     try {
-      const email = req.body.email;
+      const { email, password } = req.body.email;
       console.log('\n\n\npassword -> ', email, req.body.password);
       // const password = crypt.encrypt(String(req.body.password));
 
       const clients = await connection('clients')
         .select('id')
-        .where({ email, password: req.body.password })
+        .where({ email, password })
         .first();
 
       if (!clients) {
