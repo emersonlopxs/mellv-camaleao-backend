@@ -58,7 +58,7 @@ module.exports = {
 
       return res.status(204).header('x-access-token', token).send();
     } catch (error) {
-      console.log('error -> ', err);
+      console.log('error -> ', error);
 
       return res.status(503).json({
         message: 'Não foi possível logar, confira suas credenciais',
