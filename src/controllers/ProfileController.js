@@ -7,6 +7,8 @@ module.exports = {
   async show(req, res) {
     const id = req.cli_id;
     try {
+      console.log('id -> ', id, req);
+
       const client = await connection('clients')
         .select(['id', 'name', 'surname', 'displayname', 'email', 'phone'])
         .where('id', id);
