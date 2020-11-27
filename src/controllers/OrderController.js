@@ -161,7 +161,7 @@ module.exports = {
 
     try {
       const payment = await stripe.paymentIntents.create({
-        amount: Number(total) * 100,
+        amount: Math.floor(Number(total) * 100),
         currency: 'BRL',
         description: 'Descrição...',
         payment_method: stripe_pay_id,
@@ -179,7 +179,7 @@ module.exports = {
           total_price: total,
           note,
           name,
-          cpf: cpf.replace(/\./g,'').replace(/\-/g,''),
+          cpf: cpf.replace(/\./g, '').replace(/\-/g, ''),
         })
         .returning('id');
 
