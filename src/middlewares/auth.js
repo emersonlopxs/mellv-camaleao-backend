@@ -13,7 +13,7 @@ module.exports = {
         .json({ auth: false, status: 'No token provided.' });
     }
 
-    jwt.verify(token, process.env.SECRET, function (err, decoded) {
+    jwt.verify(token, 'addsasds', function (err, decoded) {
       if (err) {
         return res
           .status(500)
